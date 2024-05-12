@@ -2,7 +2,6 @@
   "name": "server",
   "version": "1.0.0",
   "main": "client/server.js",
-  
   "scripts": {
     "dev": "nodemon client/server.js",
     "start": "node client/server.js"
