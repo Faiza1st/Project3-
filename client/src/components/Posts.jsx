@@ -1,6 +1,6 @@
 import Post from "./Post.jsx";
-import PostSkeleton from "../components/SkeletonPost.jsx";
-import { POSTS } from "../utils/db/data.jsx";
+import PostSkeleton from "./SkeletonPost.jsx";
+import { POSTS } from "../../src/utils/db/data.js";
 
 const Posts = () => {
 	const isLoading = false;
