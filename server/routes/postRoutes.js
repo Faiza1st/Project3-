@@ -7,6 +7,6 @@ const router = express.Router();
 router.post("/create", protectRoute, createPost)
 router.post("/like/:id", protectRoute, likePostUnlike) 
 // router.post("/comment/:id", commentOnPost)  
-router.post("/", protectRoute, deletePost) 
+router.post("/:id", protectRoute, deletePost) 
 
 export default router;
