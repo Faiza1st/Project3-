@@ -1,10 +1,11 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "main": "client/server.js",
+  "main": "server/server.js",
   "scripts": {
-    "dev": "nodemon client/server.js",
-    "start": "node client/server.js"
+    "dev": "nodemon server/server.js",
+    "start": "node server/server.js",
+    "build": "npm install && npm install --prefix server && npm run build --prefix client"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "init": "^0.1.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.4"
   },
