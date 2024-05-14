@@ -1,11 +1,12 @@
 import express from 'express';
-// import {createPost} from '../controllers/post.js'
+import { protectRoute } from '../protectedRoute/protectRoute';
+import {createPost, deletePost, likePostUnlike } from '../controllers/post.js'
 
 const router = express.Router();
 
-// router.post("/create", createPost)
-// router.post("/like/:id", likePostUnlike) 
+router.post("/create", protectRoute, createPost)
+router.post("/like/:id", protectRoute, likePostUnlike) 
 // router.post("/comment/:id", commentOnPost)  
-// router.post("/", deletePost) 
+router.post("/", protectRoute, deletePost) 
 
 export default router;
