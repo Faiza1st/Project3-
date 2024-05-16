@@ -6,6 +6,7 @@ import {v2 as cloudinary} from 'cloudinary';
 import authRoutes from './routes/authRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import postRoutes from './routes/postRoutes.js'
+import notificationRoutes from './routes/notificationRoutes.js'
 
 import mongoDb from './db/mongodb.js'
 
@@ -25,7 +26,8 @@ app.use(express.urlencoded({ extended :true}));
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
-app.use("/api/posts", postRoutes)
+app.use("/api/posts", postRoutes);
+app.use("/api/notification", notificationRoutes);
 
 
 
