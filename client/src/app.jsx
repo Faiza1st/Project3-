@@ -8,6 +8,9 @@ import ProfilePage from "./pages/profile/ProfilePage.jsx";
 import Sidebar from "./components/Sidebar.jsx";
 import RightPanel from "./components/RightPanal.jsx";
 
+
+import { Toaster } from "react-hot-toast";
+
 function App() {
 		return (
 			<div className='flex max-w-6xl mx-auto'>
@@ -20,6 +23,7 @@ function App() {
 					<Route path='/profile/:username' element={<ProfilePage />} />
 				</Routes>
 				<RightPanel/>
+				<Toaster/>
 			</div>
 		);
 	}
