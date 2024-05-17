@@ -1,4 +1,4 @@
-import express from 'express';
+const express = require("express");
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import {v2 as cloudinary} from 'cloudinary';
