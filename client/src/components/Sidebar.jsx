@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 
 
 const Sidebar = () => {
+	const queryClient = useQueryClient();
 		const { mutate: logout} = useMutation({
 			mutationFn: async () => {
 				try {
@@ -24,6 +25,7 @@ const Sidebar = () => {
 				}
 			},
 			onSuccess: () => {
+				toast.success("Logout successful");
 				queryClient.invalidateQueries({ queryKey: ["authUser"] });
 			},
 			onError: () => {
