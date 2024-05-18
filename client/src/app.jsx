@@ -18,6 +18,29 @@ import LoadingSpinner from "./components/LoadingSpinner.jsx";
 
 
 function App() {
+	const {data: authUser, isLoading} = useQuery({
+		quaryKey: ['authUser'],
+		quaryFn: async() => {
+			try {
+				const res = await fetch('http://localhost:4050/api/auth/authMe');
+				const data = await res.json();
+				if(!res.ok){
+					throw new Error(data.error || "Error")
+				}
+				console.log('User is here',data)
+				return data
+			} catch (error) {
+				throw new Error(error)
+			}
+		}
+	}) 
+	if (isLoading) {
+		return (
+			<div className='h-screen flex justify-center items-center'>
+				<LoadingSpinner size='lg' />
+			</div>
+		);
+	}
 		return (
 			<div className='flex max-w-6xl mx-auto'>
 				{/* Only show if the user is logged in  */}
@@ -26,7 +49,7 @@ function App() {
 				<Routes>
 					{/* User need to log in or sign up to have access to the app */}
 					{/* home page --> direct to log in */}
-					<Route path='/' element={<HomePage />} />
+					<Route path='/' element={authUser ? <HomePage /> : <Navigate to='/login' />} />
 					{/* signup --> direct to home page  */}
 					<Route path='/signup' element={ <SignUpPage/>} />
 					{/* logged in --> direct to home page  */}
