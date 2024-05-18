@@ -44,7 +44,10 @@ StudentConnect is a specialised social networking site created exclusively for c
 - Node.js
 - MongoDB (for database)
 - React
-- GraphQl
+- GraphQL
+- Express
+- Tailwind 
+- DaisyUI
 
 # Installation
 - git clone https://github.com/Faiza1st/StudentConnect
