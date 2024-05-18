@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { MdOutlineMail, MdPassword } from "react-icons/md";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -50,7 +52,6 @@ const LoginPage = () => {
   return (
     <div className='max-w-screen-xl mx-auto flex h-screen'>
       <div className='flex-1 hidden lg:flex items-center justify-center'>
-        {/* Add any content you want here */}
       </div>
       <div className='flex-1 flex flex-col justify-center items-center'>
         <form className='flex gap-4 flex-col' onSubmit={handleSubmit}>

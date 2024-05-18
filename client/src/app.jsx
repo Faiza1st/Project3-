@@ -32,7 +32,8 @@ function App() {
 			} catch (error) {
 				throw new Error(error)
 			}
-		}
+		},
+		retry: false
 	}) 
 	if (isLoading) {
 		return (
@@ -50,12 +51,11 @@ function App() {
 					{/* User need to log in or sign up to have access to the app */}
 					{/* home page --> direct to log in */}
 					<Route path='/' element={authUser ? <HomePage /> : <Navigate to='/login' />} />
-					{/* signup --> direct to home page  */}
-					<Route path='/signup' element={ <SignUpPage/>} />
 					{/* logged in --> direct to home page  */}
-					<Route path='/login' element={<LoginPage />} />
-					<Route path='/notifications' element={<NotificationPage />} />
-					<Route path='/profile/:username' element={<ProfilePage />} />
+					<Route path='/login' element={!authUser ? <LoginPage /> : <Navigate to='/' />} />
+					<Route path='/signup' element={!authUser ? <SignUpPage /> : <Navigate to='/' />} />
+					<Route path='/notifications' element={authUser ? <NotificationPage /> : <Navigate to='/login' />} />
+					<Route path='/profile/:username' element={authUser ? <ProfilePage /> : <Navigate to='/login' />} />
 				</Routes>
 				{ <Sidebar />}
 				<Toaster/>

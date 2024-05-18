@@ -1,17 +1,19 @@
 import Post from "./Post.jsx";
 import PostSkeleton from "./SkeletonPost.jsx";
 import { POSTS } from "../../src/utils/db/data.js";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 
 const Posts = ({ feedType, username, userId }) => {
 	const getPostEndpoint = () => {
 		switch (feedType) {
 			case "forYou":
-				return "/api/posts/all";
+				return "http://localhost:4050/api/posts/all";
 			case "following":
-				return "/api/posts/followingpost";
+				return "http://localhost:4050/api/posts/followingpost";
 	
 			default:
-				return "/api/posts/all";
+				return "http://localhost:4050/api/posts/all";
 		}
 	};
 

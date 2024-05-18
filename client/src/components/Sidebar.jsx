@@ -12,7 +12,7 @@ const Sidebar = () => {
 		const { mutate: logout} = useMutation({
 			mutationFn: async () => {
 				try {
-					const res = await fetch("/api/auth/logout", {
+					const res = await fetch("http://localhost:4050/api/auth/logout", {
 						method: "POST",
 					});
 					const data = await res.json();
