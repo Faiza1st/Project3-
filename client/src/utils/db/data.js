@@ -1,8 +1,8 @@
 export const POSTS = [
     {
         _id: "1",
-        text: "Exploring the wonders of underwater photography 📸🌊",
-        img: "/posts/post1.png",
+        text: "Amazing Study Group Today!!",
+        img: "/posts/post7.png",
         user: {
             username: "oceanlover22",
             profileImg: "/avatars/boy1.png",
@@ -23,7 +23,7 @@ export const POSTS = [
     },
     {
         _id: "2",
-        text: "Cooking up a storm in the kitchen tonight! Who else loves to cook? 🍳🔥",
+        text: "Who's going to the party at VietSoc today?",
         user: {
             username: "chefextraordinaire",
             profileImg: "/avatars/boy2.png",
@@ -34,8 +34,8 @@ export const POSTS = [
     },
     {
         _id: "3",
-        text: "Morning hike with breathtaking views! 🏞️ #NatureLovers",
-        img: "/posts/post2.png",
+        text: "The Best!",
+        img: "/posts/post8.png",
         user: {
             username: "outdooradventurer",
             profileImg: "/avatars/girl2.png",
