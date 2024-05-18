@@ -17,7 +17,7 @@ const SignUpPage = () => {
 
   const mutation = useMutation({
     mutationFn: async ({ email, username, fullName, password }) => {
-      const res = await fetch("/api/auth/signup", {
+      const res = await fetch("http://localhost:4050/api/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

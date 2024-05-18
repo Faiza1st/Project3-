@@ -1,4 +1,5 @@
 import express from "express";
+import cors  from'cors';
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import {v2 as cloudinary} from 'cloudinary';
@@ -12,6 +13,7 @@ import mongoDb from './db/mongodb.js'
 
 dotenv.config();
 
+
 cloudinary.config({ 
     cloud_name: process.env.Cloud_name, 
     api_key: process.env.Cloud_API_key, 
@@ -19,8 +21,9 @@ cloudinary.config({
   });
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 4050;
 app.use(cookieParser()); 
+app.use(cors())
 app.use(express.urlencoded({ extended :true}));
 
 app.use(express.json());

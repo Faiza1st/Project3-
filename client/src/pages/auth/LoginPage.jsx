@@ -13,7 +13,7 @@ const LoginPage = () => {
 
   const mutation = useMutation({
     mutationFn: async ({ username, password }) => {
-      const res = await fetch("/api/auth/login", {
+      const res = await fetch("http://localhost:4050/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

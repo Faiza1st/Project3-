@@ -6,24 +6,117 @@ import { FaTrash } from "react-icons/fa";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
+
 const Post = ({ post }) => {
 	const [comment, setComment] = useState("");
+	const { data } = useQuery({ queryKey: ["authUser"] });
+	const queryClient = useQueryClient();
 	const postOwner = post.user;
-	const isLiked = false;
+	const isLiked = post.likes.includes(authUser._id);
 
-	const isMyPost = true;
+	const mypost = authUser._id === post.user._id;
 
-	const formattedDate = "1h";
+	const formattedDate = formatPostDate(post.createdAt);
 
-	const isCommenting = false;
+	const { mutate: deletePost, isPending: isDeleting } = useMutation({
+		mutationFn: async () => {
+			try {
+				const res = await fetch(`/api/posts/${post._id}`, {
+					method: "DELETE",
+				});
+				const data = await res.json();
 
-	const handleDeletePost = () => {};
+				if (!res.ok) {
+					throw new Error(data.error || "Something is wrong");
+				}
+				return data;
+			} catch (error) {
+				throw new Error(error);
+			}
+		},
+		onSuccess: () => {
+			toast.success("Post deleted successfully");
+			queryClient.invalidateQueries({ queryKey: ["posts"] });
+		},
+	});
+
+	const { mutate: likePost, isPending: isLiking } = useMutation({
+		mutationFn: async () => {
+			try {
+				const res = await fetch(`/api/posts/like/${post._id}`, {
+					method: "POST",
+				});
+				const data = await res.json();
+				if (!res.ok) {
+					throw new Error(data.error || "Something went wrong");
+				}
+				return data;
+			} catch (error) {
+				throw new Error(error);
+			}
+		},
+		onSuccess: (updatedLikes) => {
+			queryClient.setQueryData(["posts"], (oldData) => {
+				return oldData.map((p) => {
+					if (p._id === post._id) {
+						return { ...p, likes: updatedLikes };
+					}
+					return p;
+				});
+			});
+		},
+		onError: (error) => {
+			toast.error(error.message);
+		},
+	});
+
+	const { mutate: commentPost, isPending: isCommenting } = useMutation({
+		mutationFn: async () => {
+			try {
+				const res = await fetch(`/api/posts/comment/${post._id}`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ text: comment }),
+				});
+				const data = await res.json();
+
+				if (!res.ok) {
+					throw new Error(data.error || "Something went wrong");
+				}
+				return data;
+			} catch (error) {
+				throw new Error(error);
+			}
+		},
+		onSuccess: () => {
+			toast.success("Comment posted successfully");
+			setComment("");
+			queryClient.invalidateQueries({ queryKey: ["posts"] });
+		},
+		onError: (error) => {
+			toast.error(error.message);
+		},
+	});
+
+	const handleDeletePost = () => {
+		deletePost();
+	};
 
 	const handlePostComment = (e) => {
 		e.preventDefault();
+		if (isCommenting) return;
+		commentPost();
 	};
 
-	const handleLikePost = () => {};
+	const handleLikePost = () => {
+		if (isLiking) return;
+		likePost();
+	};
 
 	return (
 		<>
@@ -43,7 +136,7 @@ const Post = ({ post }) => {
 							<span>·</span>
 							<span>{formattedDate}</span>
 						</span>
-						{isMyPost && (
+						{mypost && (
 							<span className='flex justify-end flex-1'>
 								<FaTrash className='cursor-pointer hover:text-red-500' onClick={handleDeletePost} />
 							</span>
@@ -70,14 +163,13 @@ const Post = ({ post }) => {
 									{post.comments.length}
 								</span>
 							</div>
-							{/* We're using Modal Component from DaisyUI */}
 							<dialog id={`comments_modal${post._id}`} className='modal border-none outline-none'>
 								<div className='modal-box rounded border border-gray-600'>
 									<h3 className='font-bold text-lg mb-4'>COMMENTS</h3>
 									<div className='flex flex-col gap-3 max-h-60 overflow-auto'>
 										{post.comments.length === 0 && (
 											<p className='text-sm text-slate-500'>
-												No comments yet 🤔 Be the first one 😉
+												There are no comments.
 											</p>
 										)}
 										{post.comments.map((comment) => (
