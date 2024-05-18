@@ -1,4 +1,4 @@
-import {  Route, Routes } from "react-router-dom";
+import {  Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/home/HomePage.jsx";
 import LoginPage from "./pages/auth/LoginPage.jsx";
 import SignUpPage from "./pages/auth/SignUpPage.jsx";
@@ -11,9 +11,10 @@ import RightPanel from "./components/RightPanal.jsx";
 
 import { Toaster } from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
+import LoadingSpinner from "./components/LoadingSpinner.jsx";
 
 function App() {
-	const { data: authUser } = useQuery({
+	const { data: authUser , isLoading} = useQuery({
 		queryKey: ["authUser"],
 		queryFn: async () => {
 			try {
@@ -29,12 +30,20 @@ function App() {
 				throw new Error(error);
 			}
 		},
-
+		retry: false,
 	});
+		if (isLoading) {
+			return (
+				<div className='h-screen flex justify-center items-center'>
+					<LoadingSpinner size='lg' />
+				</div>
+			);
+		}
 		return (
 			<div className='flex max-w-6xl mx-auto'>
 				<Sidebar/>
 				<Routes>
+					
 					<Route path='/' element={authUser ? <HomePage /> : <Navigate to='/login' />} />
 					<Route path='/signup' element={!authUser ? <SignUpPage /> : <Navigate to='/' />}  />
 					<Route path='/login' element={!authUser ? <LoginPage /> : <Navigate to='/' />} />
