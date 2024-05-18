@@ -41,16 +41,21 @@ function App() {
 		}
 		return (
 			<div className='flex max-w-6xl mx-auto'>
-				<Sidebar/>
+				{/* Only show if the user is logged in  */}
+				{ authUser && <Sidebar />}
+				
 				<Routes>
-					
+					{/* User need to log in or sign up to have access to the app */}
+					{/* home page --> direct to log in */}
 					<Route path='/' element={authUser ? <HomePage /> : <Navigate to='/login' />} />
+					{/* signup --> direct to home page  */}
 					<Route path='/signup' element={!authUser ? <SignUpPage /> : <Navigate to='/' />}  />
+					{/* logged in --> direct to home page  */}
 					<Route path='/login' element={!authUser ? <LoginPage /> : <Navigate to='/' />} />
 					<Route path='/notifications' element={authUser ? <NotificationPage /> : <Navigate to='/login' />} />
 					<Route path='/profile/:username' element={authUser ? <ProfilePage /> : <Navigate to='/login' />} />
 				</Routes>
-				<RightPanel/>
+				{ authUser && <Sidebar />}
 				<Toaster/>
 			</div>
 		);
