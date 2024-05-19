@@ -5,119 +5,25 @@ import { FaRegBookmark } from "react-icons/fa6";
 import { FaTrash } from "react-icons/fa";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { toast } from "react-hot-toast";
-
-import LoadingSpinner from "./LoadingSpinner.jsx";
-import { formatPostDate } from "../utils/deta/index.js";
 
 const Post = ({ post }) => {
 	const [comment, setComment] = useState("");
-	const { data: authUser } = useQuery({ queryKey: ["authUser"] });
-	const queryClient = useQueryClient();
 	const postOwner = post.user;
-	const isLiked = post.likes.includes(authUser._id);
+	const isLiked = false;
 
-	const isMyPost = authUser._id === post.user._id;
+	const isMyPost = true;
 
-	const formattedDate = formatPostDate(post.createdAt);
+	const formattedDate = "1h";
 
-	const { mutate: deletePost, isPending: isDeleting } = useMutation({
-		mutationFn: async () => {
-			try {
-				const res = await fetch(`http://localhost:4050/api/posts/${post._id}`, {
-					method: "DELETE",
-				});
-				const data = await res.json();
+	const isCommenting = false;
 
-				if (!res.ok) {
-					throw new Error(data.error || "Something went wrong");
-				}
-				return data;
-			} catch (error) {
-				throw new Error(error);
-			}
-		},
-		onSuccess: () => {
-			toast.success("Post deleted successfully");
-			queryClient.invalidateQueries({ queryKey: ["posts"] });
-		},
-	});
-
-	const { mutate: likePost, isPending: isLiking } = useMutation({
-		mutationFn: async () => {
-			try {
-				const res = await fetch(`http://localhost:4050/api/posts/like/${post._id}`, {
-					method: "POST",
-				});
-				const data = await res.json();
-				if (!res.ok) {
-					throw new Error(data.error || "Something went wrong");
-				}
-				return data;
-			} catch (error) {
-				throw new Error(error);
-			}
-		},
-		onSuccess: (updatedLikes) => {
-			queryClient.setQueryData(["posts"], (oldData) => {
-				return oldData.map((p) => {
-					if (p._id === post._id) {
-						return { ...p, likes: updatedLikes };
-					}
-					return p;
-				});
-			});
-		},
-		onError: (error) => {
-			toast.error(error.message);
-		},
-	});
-
-	const { mutate: commentPost, isPending: isCommenting } = useMutation({
-		mutationFn: async () => {
-			try {
-				const res = await fetch(`http://localhost:4050/api/posts/comment/${post._id}`, {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({ text: comment }),
-				});
-				const data = await res.json();
-
-				if (!res.ok) {
-					throw new Error(data.error || "Something went wrong");
-				}
-				return data;
-			} catch (error) {
-				throw new Error(error);
-			}
-		},
-		onSuccess: () => {
-			toast.success("Comment posted successfully");
-			setComment("");
-			queryClient.invalidateQueries({ queryKey: ["posts"] });
-		},
-		onError: (error) => {
-			toast.error(error.message);
-		},
-	});
-
-	const handleDeletePost = () => {
-		deletePost();
-	};
+	const handleDeletePost = () => {};
 
 	const handlePostComment = (e) => {
 		e.preventDefault();
-		if (isCommenting) return;
-		commentPost();
 	};
 
-	const handleLikePost = () => {
-		if (isLiking) return;
-		likePost();
-	};
+	const handleLikePost = () => {};
 
 	return (
 		<>
@@ -139,11 +45,7 @@ const Post = ({ post }) => {
 						</span>
 						{isMyPost && (
 							<span className='flex justify-end flex-1'>
-								{!isDeleting && (
-									<FaTrash className='cursor-pointer hover:text-red-500' onClick={handleDeletePost} />
-								)}
-
-								{isDeleting && <LoadingSpinner size='sm' />}
+								<FaTrash className='cursor-pointer hover:text-red-500' onClick={handleDeletePost} />
 							</span>
 						)}
 					</div>
@@ -210,7 +112,11 @@ const Post = ({ post }) => {
 											onChange={(e) => setComment(e.target.value)}
 										/>
 										<button className='btn btn-primary rounded-full btn-sm text-white px-4'>
-											{isCommenting ? <LoadingSpinner size='md' /> : "Post"}
+											{isCommenting ? (
+												<span className='loading loading-spinner loading-md'></span>
+											) : (
+												"Post"
+											)}
 										</button>
 									</form>
 								</div>
@@ -223,17 +129,14 @@ const Post = ({ post }) => {
 								<span className='text-sm text-slate-500 group-hover:text-green-500'>0</span>
 							</div>
 							<div className='flex gap-1 items-center group cursor-pointer' onClick={handleLikePost}>
-								{isLiking && <LoadingSpinner size='sm' />}
-								{!isLiked && !isLiking && (
+								{!isLiked && (
 									<FaRegHeart className='w-4 h-4 cursor-pointer text-slate-500 group-hover:text-pink-500' />
 								)}
-								{isLiked && !isLiking && (
-									<FaRegHeart className='w-4 h-4 cursor-pointer text-pink-500 ' />
-								)}
+								{isLiked && <FaRegHeart className='w-4 h-4 cursor-pointer text-pink-500 ' />}
 
 								<span
-									className={`text-sm  group-hover:text-pink-500 ${
-										isLiked ? "text-pink-500" : "text-slate-500"
+									className={`text-sm text-slate-500 group-hover:text-pink-500 ${
+										isLiked ? "text-pink-500" : ""
 									}`}
 								>
 									{post.likes.length}
