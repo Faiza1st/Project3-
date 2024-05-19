@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdOutlineMail, MdPassword } from "react-icons/md";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
@@ -12,6 +12,8 @@ const LoginPage = () => {
     password: "",
   });
   const queryClient = useQueryClient();
+
+  const navigate = useNavigate();
 
   const mutation = useMutation({
     mutationFn: async ({ username, password }) => {
@@ -32,7 +34,7 @@ const LoginPage = () => {
     },
     onSuccess: () => {
       toast.success("Login successful");
-      queryClient.invalidateQueries({ queryKey: ["authUser"] });
+      navigate('/')
     },
     onError: (error) => {
       toast.error(`Error: ${error.message}`);
