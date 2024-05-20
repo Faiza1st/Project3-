@@ -12,9 +12,6 @@ StudentConnect is a specialised social networking site created exclusively for c
 - Participate in college clubs and organisations that align with your interests.
 - Discussions: Participate in dynamic and lively conversations on a wide range of subjects.
 - Recommended students: Obtain recommendations for students to follow.
-- Create posts to express your opinions and share your experiences at univeristy.
-- Interact with posts by leaving comments.
-- Demonstrate your gratitude for postings by like them.
 - Notifications: Get notified about different activities and interactions happening at university.
 
 ## Images 
@@ -49,10 +46,7 @@ StudentConnect is a specialised social networking site created exclusively for c
 - Tailwind 
 - DaisyUI
 
-# Installation
-- git clone https://github.com/Faiza1st/StudentConnect
-- npm install
-
+# ENV
 Create a .env file in the root directory and add the following:
 - env
     ```bash
@@ -70,8 +64,6 @@ Create a .env file in the root directory and add the following:
 - Sign Up / Sign In: Create a new account or sign in to an existing account.
 - Edit Profile: Update your profile with your latest information.
 - Find Friends: Search and connect with fellow students.
-- Join Groups: Browse and join various campus societies and groups.
-- Participate in Events: View and RSVP for upcoming campus events.
 - Start Discussions: Create or join discussions on topics of interest.
 - Create Posts: Share your thoughts and experiences.
 - Delete Posts: Remove posts if you are the owner.
@@ -85,8 +77,8 @@ Create a .env file in the root directory and add the following:
 ## Support
 - Faiza Faisal https://github.com/Faiza1st
 - Chat GPT
-- Private Tutors 
-- Online Tutorial Video
+- Private Tutors (Fiver)
+- Online Tutorial Video 
 - Monash University Coding Bootcamp Tutors, Lecturers and TA
 
 
