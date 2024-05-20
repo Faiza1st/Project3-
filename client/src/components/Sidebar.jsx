@@ -1,3 +1,4 @@
+// import
 import { MdHomeFilled } from "react-icons/md";
 import { IoNotifications } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
@@ -44,7 +45,7 @@ const Sidebar = () => {
           <li className="flex justify-center md:justify-start">
             <Link
               to="/"
-              className="flex gap-3 items-center hover:bg-pink-900 transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer"
+              className="flex gap-3 items-center hover:bg-[#CBC3E3] transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer"
             >
               <MdHomeFilled className="w-8 h-8" />
               <span className="text-lg hidden md:block">Home</span>
@@ -53,7 +54,7 @@ const Sidebar = () => {
           <li className="flex justify-center md:justify-start">
             <Link
               to="/notifications"
-              className="flex gap-3 items-center hover:bg-pink-900 transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer"
+              className="flex gap-3 items-center hover:bg-[#CBC3E3] transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer"
             >
               <IoNotifications className="w-6 h-6" />
               <span className="text-lg hidden md:block">Notifications</span>
@@ -63,7 +64,7 @@ const Sidebar = () => {
           <li className="flex justify-center md:justify-start">
             <Link
               to={`/profile/${authUser?.username}`}
-              className="flex gap-3 items-center hover:bg-pink-900 transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer"
+              className="flex gap-3 items-center hover:bg-[#CBC3E3] transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer"
             >
               <FaUser className="w-6 h-6" />
               <span className="text-lg hidden md:block">Profile</span>
@@ -74,7 +75,7 @@ const Sidebar = () => {
           <div className="flex flex items-center md:items-center mt-auto">
             <Link
               to={`/profile/${authUser.username}`}
-              className="flex gap-3 items-center hover:bg-pink-900 transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer"
+              className="flex gap-3 items-center hover:bg-[#CBC3E3] transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer"
             >
               <div className="avatar hidden md:inline-flex">
                 <div className="w-8 rounded-full">
@@ -88,7 +89,7 @@ const Sidebar = () => {
                   <p className="text-black font-bold text-sm w-20 truncate">
                     {authUser?.fullName}
                   </p>
-                  <p className="text-slate-500 text-sm">
+                  <p className="text-purple-500 text-sm">
                     @{authUser?.username}
                   </p>
                 </div>

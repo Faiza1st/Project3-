@@ -1,3 +1,4 @@
+// Import
 import Post from "./Post.jsx";
 import PostSkeleton from "./SkeletonPost.jsx";
 import { useQuery } from "@tanstack/react-query";
@@ -6,6 +7,7 @@ import { useEffect } from "react";
 const Posts = ({ feedType, isUpdating, setIsUpdating, userToFetch }) => {
   const authUser = JSON.parse(localStorage.getItem("authUser"));
 
+  // Backend integrations
   const getPostEndpoint = () => {
     switch (feedType) {
       case "forYou":

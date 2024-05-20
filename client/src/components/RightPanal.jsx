@@ -1,3 +1,4 @@
+// Import
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -42,6 +43,7 @@ const RightPanel = () => {
 
   const handleFollow = async (userId) => {
     try {
+      // Suggest Users
       const res = await axios.post(
         `http://localhost:4050/api/users/follow/${userId}`,
         {},
@@ -70,7 +72,7 @@ const RightPanel = () => {
 
   return (
     <div className="hidden lg:block my-4 mx-2">
-      <div className="bg-[#d29fcd] p-4 rounded-md sticky top-2">
+      <div className="bg-[#CBC3E3] p-4 rounded-md sticky top-2">
         <p className="font-bold">Suggested Students:</p>
         <div className="flex flex-col gap-4">
           {isLoading && (
@@ -83,7 +85,7 @@ const RightPanel = () => {
           )}
           {!isLoading && suggestedUsers.length === 0 && (
             <div className="text-center p-4 font-bold">
-              Suggestions not available
+              Suggestions not available!
             </div>
           )}
           {!isLoading &&
@@ -106,14 +108,14 @@ const RightPanel = () => {
                     <span className="font-semibold tracking-tight truncate w-28">
                       {user.fullName}
                     </span>
-                    <span className="text-sm text-slate-500">
+                    <span className="text-sm text-purple-500">
                       @{user.username}
                     </span>
                   </div>
                 </div>
                 <div>
                   <button
-                    className="btn bg-white text-black hover:bg-white hover:opacity-90 rounded-full btn-sm"
+                    className="btn bg-white text-black hover:bg-purple hover:opacity-90 rounded-full btn-sm"
                     onClick={(e) => {
                       e.preventDefault();
                       handleFollow(user._id);
