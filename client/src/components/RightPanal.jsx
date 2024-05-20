@@ -71,7 +71,7 @@ const RightPanel = () => {
   return (
     <div className="hidden lg:block my-4 mx-2">
       <div className="bg-[#d29fcd] p-4 rounded-md sticky top-2">
-        <p className="font-bold">Suggested for you</p>
+        <p className="font-bold">Suggested Students:</p>
         <div className="flex flex-col gap-4">
           {isLoading && (
             <>
@@ -83,7 +83,7 @@ const RightPanel = () => {
           )}
           {!isLoading && suggestedUsers.length === 0 && (
             <div className="text-center p-4 font-bold">
-              No suggestions available
+              Suggestions not available
             </div>
           )}
           {!isLoading &&
