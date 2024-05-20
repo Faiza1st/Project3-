@@ -21,7 +21,7 @@ const EditProfileModal = ({ user, setIsUpdating, isUpdating }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:4050/api/users/update", {
+      const res = await fetch("/api/users/update", {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

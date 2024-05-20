@@ -32,7 +32,7 @@ const CreatePost = ({ isUpdating, setIsUpdating }) => {
 
     try {
       const res = await axios.post(
-        "http://localhost:4050/api/posts/create",
+        "/api/posts/create",
         formData,
         {
           headers: {

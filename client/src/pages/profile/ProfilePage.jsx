@@ -38,7 +38,7 @@ const ProfilePage = () => {
       try {
         setIsLoading(true);
         const res = await axios.get(
-          `http://localhost:4050/api/users/profile/${id}`,
+          `/api/users/profile/${id}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -87,7 +87,7 @@ const ProfilePage = () => {
   const handleFollow = async () => {
     try {
       const res = await axios.post(
-        `http://localhost:4050/api/users/follow/${user._id}`,
+        `/api/users/follow/${user._id}`,
         {},
         {
           headers: {
