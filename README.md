@@ -1,7 +1,7 @@
 # StudentConnect
 
 ## Project Description
-StudentConnect is a specialised social networking site created exclusively for college and univeristy students. It enables students to establish connections, engage in interactions, and exchange their university experiences and everyday lives. StudentConnect facilitates convenient networking among students, enabling them to connect with other peers on campus, actively participate in many campus groups, and engage in dynamic and stimulating debates. Our platform offers a smooth and pleasurable experience for students to enhance their university experiences by facilitating the discovery of study groups, campus activities, and the opportunity to make new friends.
+StudentConnect is a specialised social networking site created exclusively for college and university students. It enables students to establish connections, engage in interactions, and exchange their university experiences and everyday lives. StudentConnect facilitates convenient networking among students, enabling them to connect with other peers on campus, actively participate in many campus groups, and engage in dynamic and stimulating debates. Our platform offers a smooth and pleasurable experience for students to enhance their university experiences by facilitating the discovery of study groups, campus activities, and the opportunity to make new friends.
 
 ## User Story
  As a university student, I want to connect with fellow students on campus and share my experiences, interests, and insights. I hope to discover new friends, join campus societies, and stay updated on upcoming events and activities.
@@ -12,9 +12,17 @@ StudentConnect is a specialised social networking site created exclusively for c
 - Participate in college clubs and organisations that align with your interests.
 - Discussions: Participate in dynamic and lively conversations on a wide range of subjects.
 - Recommended students: Obtain recommendations for students to follow.
-- Notifications: Get notified about different activities and interactions happening at university.
+- Notifications: Get notified about different activities and interactions happening at the university.
 
 ## Images 
+![Screen Shot 2024-05-20 at 1 52 54 pm](https://github.com/Faiza1st/StudentConnect/assets/150220093/f451ac14-e270-48b6-9f9c-2cd5a08fe2c0)
+![Screen Shot 2024-05-20 at 1 53 06 pm](https://github.com/Faiza1st/StudentConnect/assets/150220093/652777c1-dcf1-4e17-a3fb-6b94cc2cc266)
+![Screen Shot 2024-05-20 at 1 53 40 pm](https://github.com/Faiza1st/StudentConnect/assets/150220093/8766ab26-1441-45a1-87bc-d08d46705472)
+![Screen Shot 2024-05-20 at 1 55 10 pm](https://github.com/Faiza1st/StudentConnect/assets/150220093/28c7024e-2fd8-4230-88ce-b82aa3b45049)
+![Screen Shot 2024-05-20 at 1 53 53 pm](https://github.com/Faiza1st/StudentConnect/assets/150220093/24119a8b-9b21-44d0-81e7-cacdd77b1af1)
+
+
+
 
 ## Getting Started
 1. Fork the repository from GitHub (https://github.com/Faiza1st/StudentConnect)
@@ -22,7 +30,7 @@ StudentConnect is a specialised social networking site created exclusively for c
     ```bash
     git clone
     ```
-3. Open the folder containing the cloned files in Visual Studio Code .
+3. Open the folder containing the cloned files in Visual Studio Code.
 4. Make sure you have NodeJS installed on your computer. If not, download it from https://nodejs.org/.
 5. Install all dependencies required for the application by running:
 
