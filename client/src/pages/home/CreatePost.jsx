@@ -1,3 +1,4 @@
+//Importing
 import { CiImageOn } from "react-icons/ci";
 import { BsEmojiSmileFill } from "react-icons/bs";
 import { useRef, useState } from "react";
@@ -85,7 +86,7 @@ const CreatePost = ({ isUpdating, setIsUpdating }) => {
       </div>
       <form className="flex flex-col gap-2 w-full " onSubmit={handleSubmit}>
         <textarea
-          className="textarea w-full p-2 text-lg resize-none border-none focus:outline-none border-gray-800"
+          className="textarea w-full p-2 text-lg resize-none border-none focus:outline-none border-purple-800"
           placeholder="What is happening?!"
           value={text}
           onChange={(e) => setText(e.target.value)}

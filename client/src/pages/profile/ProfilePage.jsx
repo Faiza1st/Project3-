@@ -125,7 +125,7 @@ const ProfilePage = () => {
                 </Link>
                 <div className="flex flex-col">
                   <p className="font-bold text-lg">{user?.fullName}</p>
-                  <span className="text-sm text-slate-500">
+                  <span className="text-sm text-purple-500">
                     {POSTS?.length} posts
                   </span>
                 </div>
@@ -187,7 +187,7 @@ const ProfilePage = () => {
                 )}
                 {!isMyProfile && (
                   <button
-                    className={`btn btn-outline rounded-full btn-sm ${
+                    className={`btn btn-outline rounded-full btn-sm bg-[#CBC3E3] ${
                       isFollowing ? "bg-red-500" : ""
                     }`}
                     onClick={handleFollow}
@@ -200,7 +200,7 @@ const ProfilePage = () => {
               <div className="flex flex-col gap-4 mt-14 px-4">
                 <div className="flex flex-col">
                   <span className="font-bold text-lg">{user?.fullName}</span>
-                  <span className="text-sm text-slate-500">
+                  <span className="text-sm text-purple-500">
                     @{user?.username}
                   </span>
                   <span className="text-sm my-1">{user?.bio}</span>
@@ -215,7 +215,7 @@ const ProfilePage = () => {
                           href={user?.link}
                           target="_blank"
                           rel="noreferrer"
-                          className="text-sm text-blue-500 hover:underline"
+                          className="text-sm text-purple-500 hover:underline"
                         >
                           {user?.link}
                         </a>
@@ -224,7 +224,7 @@ const ProfilePage = () => {
                   )}
                   <div className="flex gap-2 items-center">
                     <IoCalendarOutline className="w-4 h-4 text-slate-500" />
-                    <span className="text-sm text-slate-500">
+                    <span className="text-sm text-purple-500">
                       Joined {new Date(user?.createdAt).toDateString()}
                     </span>
                   </div>
@@ -234,19 +234,19 @@ const ProfilePage = () => {
                     <span className="font-bold text-xs">
                       {user?.following.length}
                     </span>
-                    <span className="text-slate-500 text-xs">Following</span>
+                    <span className="text-purple-500 text-xs">Following</span>
                   </div>
                   <div className="flex gap-1 items-center">
                     <span className="font-bold text-xs">
                       {user?.followers.length}
                     </span>
-                    <span className="text-slate-500 text-xs">Followers</span>
+                    <span className="text-purple-500 text-xs">Followers</span>
                   </div>
                 </div>
               </div>
               <div className="flex w-full border-b border-gray-700 mt-4">
                 <div
-                  className="flex justify-center flex-1 p-3 hover:bg-secondary transition duration-300 relative cursor-pointer"
+                  className="flex justify-center flex-1 p-3 hover:bg-[#CBC3E3] transition duration-300 relative cursor-pointer"
                   onClick={() => setFeedType("posts")}
                 >
                   Posts
@@ -255,7 +255,7 @@ const ProfilePage = () => {
                   )}
                 </div>
                 <div
-                  className="flex justify-center flex-1 p-3 text-slate-500 hover:bg-secondary transition duration-300 relative cursor-pointer"
+                  className="flex justify-center flex-1 p-3 text-slate-500 hover:bg-[#CBC3E3] transition duration-300 relative cursor-pointer"
                   onClick={() => setFeedType("likes")}
                 >
                   Likes

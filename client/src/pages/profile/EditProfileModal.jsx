@@ -56,7 +56,7 @@ const EditProfileModal = ({ user, setIsUpdating, isUpdating }) => {
   return (
     <>
       <button
-        className="btn btn-outline rounded-full btn-sm"
+        className="btn btn-outline rounded-full btn-sm bg-[#CBC3E3]"
         onClick={() =>
           document.getElementById("edit_profile_modal").showModal()
         }
@@ -65,7 +65,7 @@ const EditProfileModal = ({ user, setIsUpdating, isUpdating }) => {
       </button>
       <dialog id="edit_profile_modal" className="modal">
         <div className="modal-box border rounded-md border-gray-700 shadow-md">
-          <h3 className="font-bold text-lg my-3">Update Profile</h3>
+          <h3 className="font-bold text-lg my-3">Update Student Profile</h3>
           <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
             <div className="flex flex-wrap gap-2">
               <input
@@ -88,14 +88,14 @@ const EditProfileModal = ({ user, setIsUpdating, isUpdating }) => {
             <div className="flex flex-wrap gap-2">
               <input
                 type="email"
-                placeholder="Email"
+                placeholder="Email/StudentID"
                 className="flex-1 input border border-gray-700 rounded p-2 input-md"
                 value={formData.email}
                 name="email"
                 onChange={handleInputChange}
               />
               <textarea
-                placeholder="Bio"
+                placeholder="Student Bio"
                 className="flex-1 input border border-gray-700 rounded p-2 input-md"
                 value={formData.bio}
                 name="bio"

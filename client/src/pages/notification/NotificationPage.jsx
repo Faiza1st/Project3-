@@ -82,10 +82,10 @@ const NotificationPage = () => {
           </div>
         )}
         {error && (
-          <div className="text-center p-4 font-bold text-red-500">{error}</div>
+          <div className="text-center p-4 font-bold text-purple-500">{error}</div>
         )}
         {!isLoading && notifications.length === 0 && (
-          <div className="text-center p-4 font-bold">No notifications 🤔</div>
+          <div className="text-center p-4 font-bold">No notifications Yet !</div>
         )}
         {notifications.map((notification) => (
           <div className="border-b border-gray-700" key={notification._id}>
