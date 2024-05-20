@@ -29,18 +29,18 @@ const PORT = process.env.PORT || 4050;
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// app.use(
-//   cors({
-//     origin: "http://localhost:4000", // frontend URL
-//     credentials: true, // Allow credentials (cookies) to be included
-//   })
-//);
+app.use(
+  cors({
+    origin: "http://localhost:4000", // frontend URL
+    credentials: true, // Allow credentials (cookies) to be included
+  })
+);
 // if (process.env.NODE_ENV === 'production') {
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-app.get('*', (req, res) => {
-res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-});
+// app.get('*', (req, res) => {
+// res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+// });
 
 
 app.use("/api/auth", authRoutes);
