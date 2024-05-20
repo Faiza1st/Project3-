@@ -72,7 +72,7 @@ const Sidebar = () => {
           </li>
         </ul>
         {authUser && (
-          <div className="flex flex items-center md:items-center mt-auto">
+          <div className="flex items-center md:items-center mt-auto">
             <Link
               to={`/profile/${authUser.username}`}
               className="flex gap-3 items-center hover:bg-[#CBC3E3] transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer"
