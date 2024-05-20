@@ -21,18 +21,16 @@ cloudinary.config({
 
 const app = express();
 const PORT = process.env.PORT || 4050;
-
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(
   cors({
     origin: "http://localhost:4000", // frontend URL
     credentials: true, // Allow credentials (cookies) to be included
   })
 );
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 
-app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);

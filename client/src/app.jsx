@@ -14,7 +14,10 @@ import { useEffect, useState } from "react";
 import LoadingSpinner from "./components/LoadingSpinner.jsx";
 
 function App() {
-  const [authUser, setAuthUser] = useState(undefined);
+  const getAuhUser = () => {
+    return JSON.parse(localStorage.getItem("authUser")) || undefined;
+  };
+  const [authUser, setAuthUser] = useState(getAuhUser());
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -27,7 +30,6 @@ function App() {
           credentials: "include", // Include cookies in the request
           headers: {
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
           },
         });
         const data = await res.json();
@@ -35,6 +37,7 @@ function App() {
           console.log("Error in fetching user", data.error || "Error");
           throw new Error(data.error || "Error");
         }
+        localStorage.setItem("authUser", JSON.stringify(data));
         setAuthUser(data);
         setIsLoading(false);
       } catch (error) {
@@ -59,6 +62,7 @@ function App() {
   return (
     <div className="flex max-w-6xl mx-auto">
       {/* Only show if the user is logged in  */}
+
       {<Sidebar />}
 
       <Routes>
@@ -70,23 +74,24 @@ function App() {
         />
         {/* logged in --> direct to home page  */}
         <Route
-          path="/login"
-          element={!authUser ? <LoginPage /> : <Navigate to="/" />}
-        />
-        <Route
           path="/signup"
           element={!authUser ? <SignUpPage /> : <Navigate to="/" />}
         />
+        <Route
+          path="/login"
+          element={!authUser ? <LoginPage /> : <Navigate to="/" />}
+        />
+
         <Route
           path="/notifications"
           element={authUser ? <NotificationPage /> : <Navigate to="/login" />}
         />
         <Route
-          path="/profile/:username"
+          path="/profile/:id"
           element={authUser ? <ProfilePage /> : <Navigate to="/login" />}
         />
       </Routes>
-      {<RightPanel />}
+      {authUser && <RightPanel />}
       <Toaster />
     </div>
   );

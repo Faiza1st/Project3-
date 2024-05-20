@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 
 export const protectRoute = async (req, res, next) => {
   try {
-    console.log("cooke", req.cookies);
     const token = req.cookies.jwt;
 
     if (!token) {
@@ -17,8 +16,6 @@ export const protectRoute = async (req, res, next) => {
     }
 
     const user = await User.findById(decoded.userId).select("-password");
-
-    console.log("user: ", user);
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });

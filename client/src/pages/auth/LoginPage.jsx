@@ -1,17 +1,13 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { MdOutlineMail, MdPassword } from "react-icons/md";
-import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import Cookies from "js-cookie";
 
 const LoginPage = ({ setAuthUser }) => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
-
-  const navigate = useNavigate();
 
   const login = async (formData) => {
     try {
@@ -21,26 +17,21 @@ const LoginPage = ({ setAuthUser }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ ...formData }),
+        credentials: "include",
       });
 
-      if (!res.ok) {
+      if (res.status !== 200) {
         const data = await res.json();
         throw new Error(data.error || "Something went wrong");
       }
-
       const data = await res.json();
+      localStorage.setItem("authUser", JSON.stringify(data));
 
-      Cookies.set("jwt", data.jwt, {
-        expires: 7,
-        secure: true,
-        sameSite: "strict",
-      });
-
-      // setAuthUser(data);
-      window.location.href = "/";
       toast.success("Login successful");
+      window.location.href = "/";
     } catch (error) {
-      throw new Error(error.message);
+      console.log("Error in login: ", error);
+      toast.error(error.message);
     }
   };
 
@@ -103,11 +94,12 @@ const LoginPage = ({ setAuthUser }) => {
 
         <div className="flex flex-col gap-2 mt-4">
           <p className="text-white text-lg">{"Don't have an account?"}</p>
-          <Link to="/signup">
-            <button className="btn rounded-full btn-primary text-white btn-outline w-full">
-              Sign up
-            </button>
-          </Link>
+          <button
+            className="btn rounded-full btn-primary text-white btn-outline w-full"
+            onClick={() => (window.location.href = "/signup")}
+          >
+            Sign up
+          </button>
         </div>
       </div>
     </div>

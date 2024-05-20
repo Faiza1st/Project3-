@@ -3,13 +3,23 @@ import PostSkeleton from "./SkeletonPost.jsx";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 
-const Posts = ({ feedType, username, userId }) => {
+const Posts = ({ feedType, isUpdating, setIsUpdating, userToFetch }) => {
+  const authUser = JSON.parse(localStorage.getItem("authUser"));
+
   const getPostEndpoint = () => {
     switch (feedType) {
       case "forYou":
         return "http://localhost:4050/api/posts/all";
       case "following":
         return "http://localhost:4050/api/posts/followingpost";
+      case "posts":
+        return `http://localhost:4050/api/posts/user/${
+          userToFetch?.username || authUser.username
+        }`;
+      case "likes":
+        return `http://localhost:4050/api/posts/likes/${
+          userToFetch?._id || authUser._id
+        }`;
 
       default:
         return "http://localhost:4050/api/posts/all";
@@ -24,10 +34,15 @@ const Posts = ({ feedType, username, userId }) => {
     refetch,
     isRefetching,
   } = useQuery({
-    queryKey: ["posts"],
+    queryKey: ["posts", feedType], // Add feedType to queryKey to refetch on feedType change
     queryFn: async () => {
       try {
-        const res = await fetch(POST_ENDPOINT);
+        const res = await fetch(POST_ENDPOINT, {
+          credentials: "include", // Ensure cookies are sent
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         const data = await res.json();
 
         if (!res.ok) {
@@ -43,7 +58,7 @@ const Posts = ({ feedType, username, userId }) => {
 
   useEffect(() => {
     refetch();
-  }, [feedType, refetch, username]);
+  }, [feedType, refetch, isUpdating]);
 
   return (
     <>
@@ -59,9 +74,17 @@ const Posts = ({ feedType, username, userId }) => {
       )}
       {!isLoading && !isRefetching && posts && (
         <div>
-          {posts.map((post) => (
-            <Post key={post._id} post={post} />
-          ))}
+          {posts.map((post) => {
+            console.log(post);
+            return (
+              <Post
+                key={post._id}
+                post={post}
+                isUpdating={isUpdating}
+                setIsUpdating={setIsUpdating}
+              />
+            );
+          })}
         </div>
       )}
     </>

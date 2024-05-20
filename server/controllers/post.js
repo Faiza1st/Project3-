@@ -3,47 +3,61 @@ import User from "../models/user.js";
 import Notification from "../models/notification.js";
 import { v2 as cloudinary } from "cloudinary";
 
-export const createPost = async (req, res) => {
-  try {
-    //Allow users to create new post with img and text
-    //attach the post to the user
-    //create the new post and send it the user
+import multer from "multer";
 
-    // text and img from request body
-    const { text } = req.body;
-    let { img } = req.body;
+// Multer setup for handling file uploads
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
-    const userId = req.user._id.toString();
+// Middleware to handle multipart/form-data
+export const createPost = [
+  upload.single("img"),
+  async (req, res) => {
+    try {
+      const { text } = req.body;
+      const file = req.file;
 
-    // Find user by ID
-    const user = await User.findById(userId);
-    if (!user) return res.status(404).json({ message: "User not found" });
+      const userId = req.user._id.toString();
 
-    // Check if post has text or image //Send error other wise
-    if (!text && !img) {
-      return res.status(400).json({ error: "Post must have text or image" });
+      // Find user by ID
+      const user = await User.findById(userId);
+      if (!user) return res.status(404).json({ message: "User not found" });
+
+      // Check if post has text or image
+      if (!text && !file) {
+        return res.status(400).json({ error: "Post must have text or image" });
+      }
+
+      let img;
+      // Upload image to Cloudinary if file exists
+      if (file) {
+        const uploadedResponse = await cloudinary.uploader
+          .upload_stream({ resource_type: "image" }, (error, result) => {
+            if (error) {
+              return res.status(500).json({ error: "Image upload failed" });
+            }
+            img = result.secure_url;
+          })
+          .end(file.buffer);
+      }
+
+      // Create a new post
+      const newPost = new Post({
+        user: userId,
+        text,
+        img,
+      });
+
+      await newPost.save();
+
+      // Return the new post
+      res.status(201).json(newPost);
+    } catch (error) {
+      res.status(500).json({ error: "Internal server error" });
+      console.log("Error in createPost controller: ", error);
     }
-
-    // Upload image to cloudinary // cloud data
-    if (img) {
-      const uploadedResponse = await cloudinary.uploader.upload(img);
-      img = uploadedResponse.secure_url;
-    }
-
-    // Create a new post -> save the post
-    const newPost = new Post({
-      user: userId,
-      text,
-      img,
-    });
-    await newPost.save();
-    // Return the newpost
-    res.status(201).json(newPost);
-  } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
-    console.log("Error in createPost controller: ", error);
-  }
-};
+  },
+];
 
 export const deletePost = async (req, res) => {
   try {
