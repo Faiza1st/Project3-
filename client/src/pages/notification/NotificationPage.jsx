@@ -18,7 +18,7 @@ const NotificationPage = () => {
         setIsLoading(true);
 
         // Fetch notifications with credentials
-        const res = await axios.get("/api/notification", {
+        const res = await axios.get("http://localhost:4050/api/notification", {
           headers: {
             "Content-Type": "application/json",
           },
@@ -41,7 +41,7 @@ const NotificationPage = () => {
 
   const deleteNotifications = () => {
     try {
-      axios.delete("/api/notification", {
+      axios.delete("http://localhost:4050/api/notification", {
         headers: {
           "Content-Type": "application/json",
         },

@@ -35,7 +35,7 @@ const Post = ({ post, isUpdating, setIsUpdating }) => {
   const { mutate: deletePost, isLoading: isDeleting } = useMutation({
     mutationFn: async () => {
       try {
-        const res = await fetch(`/api/posts/${post._id}`, {
+        const res = await fetch(`http://localhost:4050/api/posts/${post._id}`, {
           method: "POST",
           credentials: "include",
         });
@@ -59,7 +59,7 @@ const Post = ({ post, isUpdating, setIsUpdating }) => {
     mutationFn: async () => {
       try {
         const res = await fetch(
-          `/api/posts/like/${post._id}`,
+          `http://localhost:4050/api/posts/like/${post._id}`,
           {
             method: "POST",
             credentials: "include",
@@ -97,7 +97,7 @@ const Post = ({ post, isUpdating, setIsUpdating }) => {
     mutationFn: async () => {
       try {
         const res = await fetch(
-          `/api/posts/comment/${post._id}`,
+          `http://localhost:4050/api/posts/comment/${post._id}`,
           {
             method: "POST",
             headers: {

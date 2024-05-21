@@ -11,20 +11,20 @@ const Posts = ({ feedType, isUpdating, setIsUpdating, userToFetch }) => {
   const getPostEndpoint = () => {
     switch (feedType) {
       case "forYou":
-        return "/api/posts/all";
+        return "http://localhost:4050/api/posts/all";
       case "following":
-        return "/api/posts/followingpost";
+        return "http://localhost:4050/api/posts/followingpost";
       case "posts":
-        return `/api/posts/user/${
+        return `http://localhost:4050/api/posts/user/${
           userToFetch?.username || authUser.username
         }`;
       case "likes":
-        return `/api/posts/likes/${
+        return `http://localhost:4050/api/posts/likes/${
           userToFetch?._id || authUser._id
         }`;
 
       default:
-        return "/api/posts/all";
+        return "http://localhost:4050/api/posts/all";
     }
   };
 

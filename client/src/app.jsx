@@ -25,7 +25,7 @@ function App() {
       try {
         setIsLoading(true);
         console.log("executing u");
-        const res = await fetch("/api/auth/authMe", {
+        const res = await fetch("http://localhost:4050/api/auth/authMe", {
           method: "GET",
           credentials: "include", // Include cookies in the request
           headers: {

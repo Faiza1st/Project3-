@@ -19,7 +19,7 @@ const RightPanel = () => {
 
         // Fetch suggested users
         const res = await axios.get(
-          "/api/users/suggested",
+          "http://localhost:4050/api/users/suggested",
           {
             headers: {
               "Content-Type": "application/json",
@@ -45,7 +45,7 @@ const RightPanel = () => {
     try {
       // Suggest Users
       const res = await axios.post(
-        `/api/users/follow/${userId}`,
+        `http://localhost:4050/api/users/follow/${userId}`,
         {},
         {
           headers: {
