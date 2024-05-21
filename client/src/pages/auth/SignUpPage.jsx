@@ -1,15 +1,11 @@
-import { Link } from "react-router-dom";
 import { useState } from "react";
-import {
-  MdOutlineMail,
-  MdPassword,
-  MdDriveFileRenameOutline,
-} from "react-icons/md";
+import { Link } from "react-router-dom";
+import { MdOutlineMail, MdPassword } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { MdDriveFileRenameOutline } from "react-icons/md";
 import toast from "react-hot-toast";
 
-const SignUpPage = () => {
+const SignUpPage = ({ setAuthUser }) => {
   const [formData, setFormData] = useState({
     email: "",
     username: "",
@@ -17,37 +13,35 @@ const SignUpPage = () => {
     password: "",
   });
 
-  const queryClient = useQueryClient();
-
-  const mutation = useMutation({
-    mutationFn: async ({ email, username, fullName, password }) => {
+  const signup = async (formData) => {
+    try {
       const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, username, fullName, password }),
+        body: JSON.stringify({ ...formData }),
+        credentials: "include",
       });
 
-      if (!res.ok) {
+      if (res.status !== 200) {
         const data = await res.json();
-        throw new Error(data.error || "Failed to create account");
+        throw new Error(data.error || "Something went wrong");
       }
+      const data = await res.json();
+      localStorage.setItem("authUser", JSON.stringify(data));
 
-      return await res.json();
-    },
-    onSuccess: () => {
-      toast.success("Account created successfully");
-      window.location.href = "/login";
-    },
-    onError: (error) => {
-      toast.error(`Error: ${error.message}`);
-    },
-  });
+      toast.success("Signup successful");
+      window.location.href = "/";
+    } catch (error) {
+      console.log("Error in signup: ", error);
+      toast.error(error.message);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    mutation.mutate(formData);
+    signup(formData);
   };
 
   const handleInputChange = (e) => {
@@ -57,8 +51,7 @@ const SignUpPage = () => {
 
   return (
     <div className="max-w-screen-xl mx-auto flex h-screen px-10">
-      <div className="flex-1 hidden lg:flex items-center justify-center">
-      </div>
+      <div className="flex-1 hidden lg:flex items-center justify-center"></div>
       <div className="flex-1 flex flex-col justify-center items-center">
         <form
           className="lg:w-2/3 mx-auto md:mx-20 flex gap-4 flex-col"
@@ -126,14 +119,9 @@ const SignUpPage = () => {
           <button
             className="btn rounded-full btn-primary text-white"
             type="submit"
-            disabled={mutation.isLoading}
           >
-            {mutation.isLoading ? "Loading..." : "Sign up"}
+            Sign up
           </button>
-
-          {mutation.isError && (
-            <p className="text-red-500">{mutation.error.message}</p>
-          )}
         </form>
 
         <div className="flex flex-col lg:w-2/3 gap-2 mt-4">

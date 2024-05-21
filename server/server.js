@@ -4,6 +4,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+
 import { v2 as cloudinary } from "cloudinary";
 
 import authRoutes from "./routes/authRoutes.js";
@@ -14,9 +15,14 @@ import notificationRoutes from "./routes/notificationRoutes.js";
 import mongoDb from "./db/mongodb.js";
 import * as url from 'url';
 
+
+const app = express();
+const PORT = process.env.PORT || 4050;
+dotenv.config();
+
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
-dotenv.config();
+
 
 cloudinary.config({
   cloud_name: process.env.Cloud_name,
@@ -24,8 +30,6 @@ cloudinary.config({
   api_secret: process.env.Cloud_API_secret,
 });
 
-const app = express();
-const PORT = process.env.PORT || 4050;
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -37,6 +41,10 @@ app.use(
 );
 // if (process.env.NODE_ENV === 'production') {
 app.use(express.static(path.join(__dirname, '../client/dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+});
 
 // app.get('*', (req, res) => {
 // res.sendFile(path.join(__dirname, '../client/dist/index.html'));
