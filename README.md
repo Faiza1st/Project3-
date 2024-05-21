@@ -37,11 +37,15 @@ StudentConnect is a specialised social networking site created exclusively for c
     ```bash
     npm install
     ```
-6. Create a .env file in the root directory and by following the steps below
-7. Run the server by executing in the terminal. This will start the server and open it on http://localhost:4050/.
+6. Create a .env file in the root directory by following the steps below
+7. Run 
+    ```bash
+    npm run build
+    ```
+8. Run the server by executing in the terminal. This will start the server and open it on http://localhost:4050/.
 
     ```bash
-    npm run start
+    npm start
     ```
 
 
